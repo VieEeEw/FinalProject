@@ -9,6 +9,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.regex.*;
@@ -17,26 +18,26 @@ import java.io.IOException;
 
 
 public class Parser {
-    public static final String urlBase = "https://courses.illinois.edu/schedule/2019/spring/";
+    public static final String URL_BASE = "https://courses.illinois.edu/schedule/2019/spring/";
     private String urlToParse;
 
     private ArrayList<String[]> stored;
 
     public Parser() {
-        urlToParse = "https://courses.illinois.edu/schedule/2019/spring/MATH/441";
+        urlToParse = "https://courses.illinois.edu/schedule/2019/spring/CS/125";
     }
 
     Parser(String courseName, String courseNumber) {
-        urlToParse = urlBase + courseName + "/" + courseNumber;
+        urlToParse = URL_BASE + courseName.toUpperCase () + "/" + courseNumber;
     }
 
-    public ArrayList<String[]> parseForCrn() {
+    public void parseForCrn() {
         Document doc;
         try {
             doc = Jsoup.connect (urlToParse).get ();
         } catch (IOException e) {
             e.printStackTrace ();
-            return null;
+            return;
         }
         Elements scripts = doc.select ("script");
         String useful = null;
@@ -48,7 +49,7 @@ public class Parser {
             }
         }
         if (useful == null) {
-            return null;
+            return;
         }
         ArrayList<String> toUse = new ArrayList<> ();
         for (String str: useful.split("crn...")) {
@@ -61,7 +62,7 @@ public class Parser {
             }
         }
         if (toUse.size() == 0) {
-            return null;
+            return;
         }
         String[] aval = new String[toUse.size()];
         String[] crns = new String[toUse.size()];
@@ -72,13 +73,12 @@ public class Parser {
             i++;
         }
         if (i != toUse.size()) {
-            return  null;
+            return;
         }
         ArrayList<String[]> toReturn = new ArrayList<> (2);
         toReturn.add(aval);
         toReturn.add(crns);
         stored = toReturn;
-        return toReturn;
     }
     public String[] getCrns() {
         return stored.get (1);
@@ -90,17 +90,12 @@ public class Parser {
 
 class Test {
     public static void main(String[] args) throws Exception {
-        while (true) {
-            Parser p = new Parser ();
-            ArrayList<String[]> store = p.parseForCrn ();
-            System.out.println (Arrays.deepToString (store.toArray ()));
-            String[] avl = store.get (0);
-            String[] crns = store.get (1);
-            for (int i = 0; i < avl.length; i++) {
-                System.out.println ("error");
-                System.out.println (avl[i] + " : " + crns[i]);
-            }
-            Thread.sleep (3000);
+        Parser p = new Parser ("cS", "125");
+        p.parseForCrn ();
+        String[] avl = p.getAval ();
+        String[] crns = p.getCrns ();
+        for (int i = 0; i < avl.length; i++) {
+            System.out.println (avl[i] + " : " + crns[i]);
         }
     }
 }

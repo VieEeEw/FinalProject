@@ -9,23 +9,24 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-
+import java.util.Arrays;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        Button btn = (Button) findViewById (R.id.btnDoMagic);
-        btn.setOnClickListener(new View.OnClickListener () {
-            @Override
-            public void onClick(View v) {
-                Log.i("MyApp", "This is a magic log message!");
-                Toast.makeText(getApplicationContext (), "It is magic!", Toast.LENGTH_LONG)
-                        .show();
-            }
-        });
+        super.onCreate (savedInstanceState);
+        setContentView (R.layout.activity_main);
+
+        new Thread(runnable).run();
     }
+    Runnable runnable = new Runnable () {
+        @Override
+        public void run() {
+            Parser parser = new Parser ();
+            parser.parseForCrn ();
+            Log.d ("ONCREATE", Arrays.toString (parser.getAval ()));
+        }
+    };
 }
