@@ -118,6 +118,7 @@ public class MainActivity extends AppCompatActivity {
             super.handleMessage(msg);
             CRN_1.setText (crns[0]);
             Availability_1.setText (aval[0]);
+            
             for (int i = 0; i < 10; i++) {
                 String crnIndex = "CRN_" + i;
                 String avaIndex = "Availability_" + i;
