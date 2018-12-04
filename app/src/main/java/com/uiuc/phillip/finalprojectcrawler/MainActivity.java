@@ -28,8 +28,6 @@ public class MainActivity extends AppCompatActivity {
     private TableRow r9;
     private TableRow r10;
     //private TableRow r11;
-    private TextView[] CRNs = new TextView[10];
-    /*
     private TextView CRN_Instruction;
     private TextView CRN_1;
     private TextView CRN_2;
@@ -40,9 +38,6 @@ public class MainActivity extends AppCompatActivity {
     private TextView CRN_7;
     private TextView CRN_8;
     private TextView CRN_9;
-    */
-    private TextView[] Availabilitys = new TextView[10];
-    /*
     private TextView Availability_Instruction;
     private TextView Availability_1;
     private TextView Availability_2;
@@ -54,7 +49,6 @@ public class MainActivity extends AppCompatActivity {
     private TextView Availability_8;
     private TextView Availability_9;
     //private TextView Availability_10;
-    */
     private Button toClick;
 
     private String[] crns;
@@ -76,27 +70,27 @@ public class MainActivity extends AppCompatActivity {
         r9 = findViewById(R.id.r9);
         r10 = findViewById(R.id.r10);
         //r11 = findViewById(R.id.r11);
-        CRNs[0] = findViewById (R.id.CRN_Instruction);
-        CRNs[1] = findViewById (R.id.CRN_1);
-        CRNs[2] = findViewById (R.id.CRN_2);
-        CRNs[3] = findViewById (R.id.CRN_3);
-        CRNs[4] = findViewById (R.id.CRN_4);
-        CRNs[5] = findViewById (R.id.CRN_5);
-        CRNs[6] = findViewById (R.id.CRN_6);
-        CRNs[7] = findViewById (R.id.CRN_7);
-        CRNs[8] = findViewById (R.id.CRN_8);
-        CRNs[9] = findViewById (R.id.CRN_9);
+        CRN_Instruction = findViewById (R.id.CRN_Instruction);
+        CRN_1 = findViewById (R.id.CRN_1);
+        CRN_2 = findViewById (R.id.CRN_2);
+        CRN_3 = findViewById (R.id.CRN_3);
+        CRN_4 = findViewById (R.id.CRN_4);
+        CRN_5 = findViewById (R.id.CRN_5);
+        CRN_6 = findViewById (R.id.CRN_6);
+        CRN_7 = findViewById (R.id.CRN_7);
+        CRN_8 = findViewById (R.id.CRN_8);
+        CRN_9 = findViewById (R.id.CRN_9);
         //CRN_10 = findViewById (R.id.CRN_10);
-        Availabilitys[0] = findViewById (R.id.Availability_Instruction);
-        Availabilitys[1] = findViewById (R.id.Availability_1);
-        Availabilitys[2] = findViewById (R.id.Availability_2);
-        Availabilitys[3] = findViewById (R.id.Availability_3);
-        Availabilitys[4] = findViewById (R.id.Availability_4);
-        Availabilitys[5] = findViewById (R.id.Availability_5);
-        Availabilitys[6] = findViewById (R.id.Availability_6);
-        Availabilitys[7] = findViewById (R.id.Availability_7);
-        Availabilitys[8] = findViewById (R.id.Availability_8);
-        Availabilitys[9] = findViewById (R.id.Availability_9);
+        Availability_Instruction = findViewById (R.id.Availability_Instruction);
+        Availability_1 = findViewById (R.id.Availability_1);
+        Availability_2 = findViewById (R.id.Availability_2);
+        Availability_3 = findViewById (R.id.Availability_3);
+        Availability_4 = findViewById (R.id.Availability_4);
+        Availability_5 = findViewById (R.id.Availability_5);
+        Availability_6 = findViewById (R.id.Availability_6);
+        Availability_7 = findViewById (R.id.Availability_7);
+        Availability_8 = findViewById (R.id.Availability_8);
+        Availability_9 = findViewById (R.id.Availability_9);
         //Availability_10 = findViewById (R.id.Availability_10);
         toClick = findViewById (R.id.toClick);
         toClick.setOnClickListener (new View.OnClickListener () {
@@ -122,9 +116,12 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            for (int i = 0; i < 9; i++) {
-                CRNs[i + 1].setText (crns[i]);
-                Availabilitys[i + 1].setText (aval[i]);
+            CRN_1.setText (crns[0]);
+            Availability_1.setText (aval[0]);
+            for (int i = 0; i < 10; i++) {
+                String crnIndex = "CRN_" + i;
+                String avaIndex = "Availability_" + i;
+
             }
         }
     };
