@@ -1,9 +1,202 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-</FrameLayout>
+    <TableRow
+        android:id="@+id/r1"
+        android:layout_width="match_parent"
+        android:layout_height="455dp" >
+
+        <TextView
+            android:id="@+id/CRN_Instruction"
+            android:layout_width="176dp"
+            android:layout_height="wrap_content"
+            android:text="CRN"></TextView>
+
+        <TextView
+            android:id="@+id/Availability_Instruction"
+            android:layout_width="207dp"
+            android:layout_height="wrap_content"
+            android:text="Availability"></TextView>
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/r2"
+        android:layout_width="match_parent"
+        android:layout_height="455dp" >
+
+        <TextView
+            android:id="@+id/CRN_1"
+            android:layout_width="176dp"
+            android:layout_height="wrap_content"
+            android:text="Hello World"></TextView>
+
+        <TextView
+            android:id="@+id/Availability_1"
+            android:layout_width="207dp"
+            android:layout_height="wrap_content"
+            android:text="Hello World"></TextView>
+    </TableRow>
+
+    <TableRow
+    android:id="@+id/r3"
+    android:layout_width="match_parent"
+    android:layout_height="455dp" >
+
+    <TextView
+        android:id="@+id/CRN_2"
+        android:layout_width="176dp"
+        android:layout_height="wrap_content"
+        android:text="Hello World"></TextView>
+
+    <TextView
+        android:id="@+id/Availability_2"
+        android:layout_width="207dp"
+        android:layout_height="wrap_content"
+        android:text="Hello World"></TextView>
+</TableRow>
+
+    <TableRow
+    android:id="@+id/r4"
+    android:layout_width="match_parent"
+    android:layout_height="455dp" >
+
+    <TextView
+        android:id="@+id/CRN_3"
+        android:layout_width="176dp"
+        android:layout_height="wrap_content"
+        android:text="Hello World"></TextView>
+
+    <TextView
+        android:id="@+id/Availability_3"
+        android:layout_width="207dp"
+        android:layout_height="wrap_content"
+        android:text="Hello World"></TextView>
+</TableRow>
+
+    <TableRow
+    android:id="@+id/r5"
+    android:layout_width="match_parent"
+    android:layout_height="455dp" >
+
+    <TextView
+        android:id="@+id/CRN_4"
+        android:layout_width="176dp"
+        android:layout_height="wrap_content"
+        android:text="Hello World"></TextView>
+
+    <TextView
+        android:id="@+id/Availability_4"
+        android:layout_width="207dp"
+        android:layout_height="wrap_content"
+        android:text="Hello World"></TextView>
+</TableRow>
+
+    <TableRow
+    android:id="@+id/r6"
+    android:layout_width="match_parent"
+    android:layout_height="455dp" >
+
+    <TextView
+        android:id="@+id/CRN_5"
+        android:layout_width="176dp"
+        android:layout_height="wrap_content"
+        android:text="Hello World"></TextView>
+
+    <TextView
+        android:id="@+id/Availability_5"
+        android:layout_width="207dp"
+        android:layout_height="wrap_content"
+        android:text="Hello World"></TextView>
+</TableRow>
+
+    <TableRow
+    android:id="@+id/r7"
+    android:layout_width="match_parent"
+    android:layout_height="455dp" >
+
+    <TextView
+        android:id="@+id/CRN_6"
+        android:layout_width="176dp"
+        android:layout_height="wrap_content"
+        android:text="Hello World"></TextView>
+
+    <TextView
+        android:id="@+id/Availability_6"
+        android:layout_width="207dp"
+        android:layout_height="wrap_content"
+        android:text="Hello World"></TextView>
+</TableRow>
+
+    <TableRow
+    android:id="@+id/r8"
+    android:layout_width="match_parent"
+    android:layout_height="455dp" >
+
+    <TextView
+        android:id="@+id/CRN_7"
+        android:layout_width="176dp"
+        android:layout_height="wrap_content"
+        android:text="Hello World"></TextView>
+
+    <TextView
+        android:id="@+id/Availability_7"
+        android:layout_width="207dp"
+        android:layout_height="wrap_content"
+        android:text="Hello World"></TextView>
+</TableRow>
+
+    <TableRow
+    android:id="@+id/r9"
+    android:layout_width="match_parent"
+    android:layout_height="455dp" >
+
+    <TextView
+        android:id="@+id/CRN_8"
+        android:layout_width="176dp"
+        android:layout_height="wrap_content"
+        android:text="Hello World"></TextView>
+
+    <TextView
+        android:id="@+id/Availability_8"
+        android:layout_width="207dp"
+        android:layout_height="wrap_content"
+        android:text="Hello World"></TextView>
+</TableRow>
+    <TableRow
+    android:id="@+id/r10"
+    android:layout_width="match_parent"
+    android:layout_height="455dp" >
+
+    <TextView
+        android:id="@+id/CRN_9"
+        android:layout_width="176dp"
+        android:layout_height="wrap_content"
+        android:text="Hello World"></TextView>
+
+    <TextView
+        android:id="@+id/Availability_9"
+        android:layout_width="207dp"
+        android:layout_height="wrap_content"
+        android:text="Hello World"
+        tools:text="Hello World"></TextView>
+</TableRow>
+
+    <TableRow
+        android:id="@+id/r12"
+        android:layout_width="match_parent"
+        android:layout_height="43dp">
+
+
+        <Button
+            android:id="@+id/toClick"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Button" />
+    </TableRow>
+
+</TableLayout>

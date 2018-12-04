@@ -12,6 +12,7 @@ import org.jsoup.select.Elements;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.regex.*;
 
 import java.io.IOException;
@@ -21,7 +22,7 @@ public class Parser {
     public static final String URL_BASE = "https://courses.illinois.edu/schedule/2019/spring/";
     private String urlToParse;
 
-    private ArrayList<String[]> stored;
+    private List<String[]> stored;
 
     public Parser() {
         urlToParse = "https://courses.illinois.edu/schedule/2019/spring/CS/125";
