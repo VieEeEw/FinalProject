@@ -28,7 +28,9 @@ public class MainActivity extends AppCompatActivity {
     private TableRow r9;
     private TableRow r10;
     //private TableRow r11;
-    private TextView CRN_Instruction;
+    TextView[] CRNs = new TextView[10];
+    TextView[] Availabilities = new TextView[10];
+    /*private TextView CRN_Instruction;
     private TextView CRN_1;
     private TextView CRN_2;
     private TextView CRN_3;
@@ -49,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView Availability_8;
     private TextView Availability_9;
     //private TextView Availability_10;
+    */
     private Button toClick;
 
     private String[] crns;
@@ -70,32 +73,36 @@ public class MainActivity extends AppCompatActivity {
         r9 = findViewById(R.id.r9);
         r10 = findViewById(R.id.r10);
         //r11 = findViewById(R.id.r11);
-        CRN_Instruction = findViewById (R.id.CRN_Instruction);
-        CRN_1 = findViewById (R.id.CRN_1);
-        CRN_2 = findViewById (R.id.CRN_2);
-        CRN_3 = findViewById (R.id.CRN_3);
-        CRN_4 = findViewById (R.id.CRN_4);
-        CRN_5 = findViewById (R.id.CRN_5);
-        CRN_6 = findViewById (R.id.CRN_6);
-        CRN_7 = findViewById (R.id.CRN_7);
-        CRN_8 = findViewById (R.id.CRN_8);
-        CRN_9 = findViewById (R.id.CRN_9);
+        CRNs[0] = findViewById (R.id.CRN_Instruction);
+        CRNs[1] = findViewById (R.id.CRN_1);
+        CRNs[2] = findViewById (R.id.CRN_2);
+        CRNs[3] = findViewById (R.id.CRN_3);
+        CRNs[4] = findViewById (R.id.CRN_4);
+        CRNs[5] = findViewById (R.id.CRN_5);
+        CRNs[6] = findViewById (R.id.CRN_6);
+        CRNs[7] = findViewById (R.id.CRN_7);
+        CRNs[8] = findViewById (R.id.CRN_8);
+        CRNs[9] = findViewById (R.id.CRN_9);
         //CRN_10 = findViewById (R.id.CRN_10);
-        Availability_Instruction = findViewById (R.id.Availability_Instruction);
-        Availability_1 = findViewById (R.id.Availability_1);
-        Availability_2 = findViewById (R.id.Availability_2);
-        Availability_3 = findViewById (R.id.Availability_3);
-        Availability_4 = findViewById (R.id.Availability_4);
-        Availability_5 = findViewById (R.id.Availability_5);
-        Availability_6 = findViewById (R.id.Availability_6);
-        Availability_7 = findViewById (R.id.Availability_7);
-        Availability_8 = findViewById (R.id.Availability_8);
-        Availability_9 = findViewById (R.id.Availability_9);
+        Availabilities[0] = findViewById (R.id.Availability_Instruction);
+        Availabilities[1] = findViewById (R.id.Availability_1);
+        Availabilities[2] = findViewById (R.id.Availability_2);
+        Availabilities[3] = findViewById (R.id.Availability_3);
+        Availabilities[4] = findViewById (R.id.Availability_4);
+        Availabilities[5] = findViewById (R.id.Availability_5);
+        Availabilities[6] = findViewById (R.id.Availability_6);
+        Availabilities[7] = findViewById (R.id.Availability_7);
+        Availabilities[8] = findViewById (R.id.Availability_8);
+        Availabilities[9] = findViewById (R.id.Availability_9);
         //Availability_10 = findViewById (R.id.Availability_10);
         toClick = findViewById (R.id.toClick);
         toClick.setOnClickListener (new View.OnClickListener () {
             @Override
             public void onClick(View v) {
+                for (int i = 0; i < 9; i++) {
+                    CRNs[i + 1].setText ("Scraping");
+                    Availabilities[i + 1].setText ("Scraping");
+                }
                 new Thread(runnable).start();
                 Log.d("hello", "World");
             }
@@ -116,12 +123,9 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            CRN_1.setText (crns[0]);
-            Availability_1.setText (aval[0]);
-            for (int i = 0; i < 10; i++) {
-                String crnIndex = "CRN_" + i;
-                String avaIndex = "Availability_" + i;
-
+            for (int i = 0; i < 9; i++) {
+                CRNs[i + 1].setText (crns[i]);
+                Availabilities[i + 1].setText (aval[i]);
             }
         }
     };
