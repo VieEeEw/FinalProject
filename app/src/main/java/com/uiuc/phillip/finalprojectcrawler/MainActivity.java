@@ -41,10 +41,18 @@ public class MainActivity extends AppCompatActivity {
     private boolean hasNextPage = false;
     private boolean hasPrePage = false;
 
+    private boolean findModeOn = false;
+    private boolean parseByDeault = false;
+    private int trickCount = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate (savedInstanceState);
         setContentView (R.layout.activity_main);
+
+        subject = findViewById (R.id.subject);
+        courseNumber = findViewById (R.id.number);
+        crn = findViewById (R.id.crn);
 
         CRNs[0] = findViewById (R.id.CRN_Instruction);
         CRNs[1] = findViewById (R.id.CRN_1);
@@ -71,35 +79,61 @@ public class MainActivity extends AppCompatActivity {
         Availabilities[10] = findViewById (R.id.Availability_10);
 
         scrape = findViewById (R.id.scrape);
-        nextPage = findViewById (R.id.nextPage);
-        prePage = findViewById (R.id.prePage);
-
-        subject = findViewById (R.id.subject);
-        courseNumber = findViewById (R.id.number);
-        crn = findViewById (R.id.crn);
-
         scrape.setOnClickListener (new View.OnClickListener () {
             @Override
             public void onClick(View v) {
-                if (subject.getText ().toString ().matches (".+")) {
+                if (trickCount == 5) {
+                    trickCount = 0;
+                    parseByDeault = true;
+                    Toast.makeText (MainActivity.this, "You find this! Welcome to CS 125!",
+                            Toast.LENGTH_SHORT).show();
+                    new Thread(runnable).start();
+                }
+                Log.d("Crn", crn.getText ().toString ());
+                if (subject.getText ().toString ().equals("Subject")) {
+                    Toast.makeText (MainActivity.this, "Invalid subject!", Toast.LENGTH_SHORT).show();
+                    trickCount++;
+                    return;
+                } else if (subject.getText ().toString ().matches (".+")) {
                     toScrape.put("subject", subject.getText ().toString ().toUpperCase ());
                 } else {
+                    Toast.makeText (MainActivity.this, "Invalid subject!", Toast.LENGTH_SHORT).show();
+                    trickCount++;
                     return;
                 }
                 if (courseNumber.getText ().toString ().matches ("[0-9]{3}")) {
                     toScrape.put ("courseNumber", courseNumber.getText ().toString ());
                 } else {
+                    Toast.makeText (MainActivity.this, "Invalid course number!", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                toScrape.put("crn", crn.getText ().toString ());
+                if (crn.getText ().toString ().matches ("[0-9]{5}")) {
+                    findModeOn = true;
+                    Toast.makeText (MainActivity.this, "Find mode on", Toast.LENGTH_SHORT).show();
+                    toScrape.put("crn", crn.getText ().toString ());
+                } else if (crn.getText ().toString ().equals("CRN to find")){
+                    findModeOn = false;
+                    Toast.makeText (MainActivity.this, "Find mode off", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText (MainActivity.this, "Invalid CRN!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 for (int i = 0; i < 10; i++) {
                     CRNs[i + 1].setText ("Scraping");
                     Availabilities[i + 1].setText ("Scraping");
+                }
+                Log.d("Name", toScrape.get("subject"));
+                Log.d("number", toScrape.get("courseNumber"));
+                try {
+                    Log.d ("crn", toScrape.get ("crn"));
+                } catch (NullPointerException e) {
+                    Log.d("Exception found", "Which does not matter");
                 }
                 new Thread(runnable).start();
             }
         });
 
+        nextPage = findViewById (R.id.nextPage);
         nextPage.setOnClickListener (new View.OnClickListener () {
             @Override
             public void onClick(View v) {
@@ -127,6 +161,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        prePage = findViewById (R.id.prePage);
         prePage.setOnClickListener (new View.OnClickListener () {
             @Override
             public void onClick(View v) {
@@ -149,14 +184,39 @@ public class MainActivity extends AppCompatActivity {
     Runnable runnable = new Runnable () {
         @Override
         public void run() {
-            Parser parser = new Parser ();
-            parser.parseForCrn ();
-            storedMap = parser.getMap ();
-            storedAval = parser.getAval ();
-            storedCRNs = parser.getCrns ();
-            handler.sendEmptyMessage(0);
+            Parser parser;
+            if (parseByDeault) {
+                parseByDeault = false;
+                parser = new Parser();
+            } else if (!findModeOn) {
+                parser = new Parser (toScrape.get("subject"), toScrape.get("courseNumber"));
+            } else {
+                findModeOn = false;
+                parser = new Parser(toScrape.get("subject"), toScrape.get("courseNumber"), toScrape.get("crn"));
+            }
+            if (parser.parseForCrn ()) {
+                storedMap = parser.getMap ();
+                storedAval = parser.getAval ();
+                storedCRNs = parser.getCrns ();
+                handler.sendEmptyMessage (0);
+            } else {
+                err.sendEmptyMessage (0);
+            }
         }
     };
+
+    Handler err = new Handler () {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage (msg);
+            Toast.makeText (MainActivity.this, "Cannot find", Toast.LENGTH_SHORT).show();
+            for (int i = 1; i < 11; i++) {
+                CRNs[i].setText ("Cannot find your course!");
+                Availabilities[i].setText ("Cannot find your course!");
+            }
+        }
+    };
+
     Handler handler = new Handler () {
         @Override
         public void handleMessage(Message msg) {
@@ -167,6 +227,10 @@ public class MainActivity extends AppCompatActivity {
                 count = 10;
             } else {
                 count = storedAval.length;
+            }
+            for (int i = 1; i < 11; i++) {
+                CRNs[i].setText ("");
+                Availabilities[i].setText ("");
             }
             for (int i = 0; i < count; i++) {
                 CRNs[i + 1].setText (storedCRNs[i]);

@@ -26,21 +26,32 @@ public class Parser {
 
     private List<String[]> stored;
 
+    private String crnToFind;
+
     public Parser() {
         urlToParse = "https://courses.illinois.edu/schedule/2019/spring/CS/125";
     }
 
     Parser(String courseName, String courseNumber) {
-        urlToParse = URL_BASE + courseName.toUpperCase () + "/" + courseNumber;
+        urlToParse = URL_BASE + courseName + "/" + courseNumber;
+        //System.out.println (urlToParse);
+        //Log.d("url", urlToParse);
     }
 
-    public void parseForCrn() {
+    Parser (String courseName, String courseNumber, String crn) {
+        this(courseName, courseNumber);
+        crnToFind = crn;
+    }
+
+    public boolean parseForCrn() {
         Document doc;
         try {
             doc = Jsoup.connect (urlToParse).get ();
         } catch (IOException e) {
             e.printStackTrace ();
-            return;
+            //Log.d("parsing", "IO");
+            //System.out.println ("IO");
+            return false;
         }
         Elements scripts = doc.select ("script");
         String useful = null;
@@ -52,7 +63,9 @@ public class Parser {
             }
         }
         if (useful == null) {
-            return;
+            //Log.d("parsing", "No script");
+            //System.out.println ("no scrpit");
+            return false;
         }
         ArrayList<String> toUse = new ArrayList<> ();
         for (String str: useful.split("crn...")) {
@@ -65,7 +78,9 @@ public class Parser {
             }
         }
         if (toUse.size() == 0) {
-            return;
+            //Log.d("parsing", "No CRN");
+            //System.out.println ("No crn");
+            return false;
         }
         String[] aval = new String[toUse.size()];
         String[] crns = new String[toUse.size()];
@@ -76,12 +91,24 @@ public class Parser {
             i++;
         }
         if (i != toUse.size()) {
-            return;
+            //Log.d("parsing", "Not the end");
+            //System.out.println ("Not the end");
+            return false;
         }
         ArrayList<String[]> toReturn = new ArrayList<> (2);
+        if (crnToFind != null) {
+            int idx = Arrays.asList(crns).indexOf (crnToFind);
+            String[] c = {crnToFind, };
+            String[] a = {aval[idx], };
+            toReturn.add(a);
+            toReturn.add(c);
+            stored = toReturn;
+            return true;
+        }
         toReturn.add(aval);
         toReturn.add(crns);
         stored = toReturn;
+        return true;
     }
     public String[] getCrns() {
         return stored.get (1);
@@ -100,7 +127,7 @@ public class Parser {
 
 class Test {
     public static void main(String[] args) throws Exception {
-        Parser p = new Parser ("cS", "125");
+        Parser p = new Parser ("CS", "125", "31155");
         p.parseForCrn ();
         String[] avl = p.getAval ();
         String[] crns = p.getCrns ();
