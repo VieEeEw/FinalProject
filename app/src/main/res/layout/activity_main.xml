@@ -58,7 +58,7 @@
         android:layout_width="207dp"
         android:layout_height="wrap_content"
         android:text="Hello World"></TextView>
-</TableRow>
+    </TableRow>
 
     <TableRow
     android:id="@+id/r4"
@@ -76,7 +76,7 @@
         android:layout_width="207dp"
         android:layout_height="wrap_content"
         android:text="Hello World"></TextView>
-</TableRow>
+    </TableRow>
 
     <TableRow
     android:id="@+id/r5"
@@ -94,7 +94,7 @@
         android:layout_width="207dp"
         android:layout_height="wrap_content"
         android:text="Hello World"></TextView>
-</TableRow>
+    </TableRow>
 
     <TableRow
     android:id="@+id/r6"
@@ -112,7 +112,7 @@
         android:layout_width="207dp"
         android:layout_height="wrap_content"
         android:text="Hello World"></TextView>
-</TableRow>
+    </TableRow>
 
     <TableRow
     android:id="@+id/r7"
@@ -130,7 +130,7 @@
         android:layout_width="207dp"
         android:layout_height="wrap_content"
         android:text="Hello World"></TextView>
-</TableRow>
+    </TableRow>
 
     <TableRow
     android:id="@+id/r8"
@@ -148,7 +148,7 @@
         android:layout_width="207dp"
         android:layout_height="wrap_content"
         android:text="Hello World"></TextView>
-</TableRow>
+    </TableRow>
 
     <TableRow
     android:id="@+id/r9"
@@ -166,7 +166,7 @@
         android:layout_width="207dp"
         android:layout_height="wrap_content"
         android:text="Hello World"></TextView>
-</TableRow>
+    </TableRow>
     <TableRow
     android:id="@+id/r10"
     android:layout_width="match_parent"
@@ -184,19 +184,89 @@
         android:layout_height="wrap_content"
         android:text="Hello World"
         tools:text="Hello World"></TextView>
-</TableRow>
-
+    </TableRow>
     <TableRow
-        android:id="@+id/r12"
+        android:id="@+id/r11"
+        android:layout_width="match_parent"
+        android:layout_height="455dp" >
+
+        <TextView
+            android:id="@+id/CRN_10"
+            android:layout_width="176dp"
+            android:layout_height="wrap_content"
+            android:text="Hello World"></TextView>
+
+        <TextView
+            android:id="@+id/Availability_10"
+            android:layout_width="207dp"
+            android:layout_height="wrap_content"
+            android:text="Hello World"
+            tools:text="Hello World"></TextView>
+    </TableRow>
+
+    <TableRow>
+        android:id="@+id/r13"
+        android:layout_width="match_parent"
+        android:layout_height="43dp">
+
+        <Button
+            android:id="@+id/prePage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Previous Page"
+            android:visibility="invisible" />
+
+        <Button
+            android:id="@+id/nextPage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:editable="false"
+            android:text="Next Page"
+            android:visibility="invisible" />
+    </TableRow>
+    <TableRow
+        android:id="@+id/r13"
         android:layout_width="match_parent"
         android:layout_height="43dp">
 
 
+        <EditText
+            android:id="@+id/subject"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="Subject" />
+
+        <EditText
+            android:id="@+id/number"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="number"
+            android:text="Course Number" />
+
+    </TableRow>
+    <TableRow
+        android:id="@+id/r14"
+        android:layout_width="match_parent"
+        android:layout_height="43dp">
+
+
+        <EditText
+            android:id="@+id/crn"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="number"
+            android:text="CRN to find" />
+
         <Button
-            android:id="@+id/toClick"
+            android:id="@+id/scrape"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Button" />
+            android:text="Scrape!" />
+
     </TableRow>
 
 </TableLayout>

@@ -12,7 +12,9 @@ import org.jsoup.select.Elements;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.*;
 
 import java.io.IOException;
@@ -86,6 +88,13 @@ public class Parser {
     }
     public String[] getAval() {
         return stored.get (0);
+    }
+    public Map<String, String> getMap() {
+        HashMap<String, String> toReturn = new HashMap<> ();
+        for (int i = 0; i < getCrns ().length; i++) {
+            toReturn.put(getAval ()[i], getCrns ()[i]);
+        }
+        return toReturn;
     }
 }
 

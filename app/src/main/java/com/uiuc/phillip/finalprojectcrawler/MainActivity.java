@@ -7,72 +7,45 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public class MainActivity extends AppCompatActivity {
-    private TableRow r1;
-    private TableRow r2;
-    private TableRow r3;
-    private TableRow r4;
-    private TableRow r5;
-    private TableRow r6;
-    private TableRow r7;
-    private TableRow r8;
-    private TableRow r9;
-    private TableRow r10;
-    //private TableRow r11;
-    TextView[] CRNs = new TextView[10];
-    TextView[] Availabilities = new TextView[10];
-    /*private TextView CRN_Instruction;
-    private TextView CRN_1;
-    private TextView CRN_2;
-    private TextView CRN_3;
-    private TextView CRN_4;
-    private TextView CRN_5;
-    private TextView CRN_6;
-    private TextView CRN_7;
-    private TextView CRN_8;
-    private TextView CRN_9;
-    private TextView Availability_Instruction;
-    private TextView Availability_1;
-    private TextView Availability_2;
-    private TextView Availability_3;
-    private TextView Availability_4;
-    private TextView Availability_5;
-    private TextView Availability_6;
-    private TextView Availability_7;
-    private TextView Availability_8;
-    private TextView Availability_9;
-    //private TextView Availability_10;
-    */
-    private Button toClick;
+    TextView[] CRNs = new TextView[11];
+    TextView[] Availabilities = new TextView[11];
 
-    private String[] crns;
-    private String[] aval;
+    private EditText subject;
+    private EditText courseNumber;
+    private EditText crn;
+
+    private Button scrape;
+    private Button nextPage;
+    private Button prePage;
+
+    private Map<String, String> storedMap;
+    private String[] storedCRNs;
+    private String[] storedAval;
+
+    private Map<String, String> toScrape = new HashMap<> ();
+
+    private int currentPage = 0;
+    private boolean hasNextPage = false;
+    private boolean hasPrePage = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate (savedInstanceState);
         setContentView (R.layout.activity_main);
 
-        r1 = findViewById(R.id.r1);
-        r2 = findViewById(R.id.r2);
-        r3 = findViewById(R.id.r3);
-        r4 = findViewById(R.id.r4);
-        r5 = findViewById(R.id.r5);
-        r6 = findViewById(R.id.r6);
-        r7 = findViewById(R.id.r7);
-        r8 = findViewById(R.id.r8);
-        r9 = findViewById(R.id.r9);
-        r10 = findViewById(R.id.r10);
-        //r11 = findViewById(R.id.r11);
         CRNs[0] = findViewById (R.id.CRN_Instruction);
         CRNs[1] = findViewById (R.id.CRN_1);
         CRNs[2] = findViewById (R.id.CRN_2);
@@ -83,7 +56,8 @@ public class MainActivity extends AppCompatActivity {
         CRNs[7] = findViewById (R.id.CRN_7);
         CRNs[8] = findViewById (R.id.CRN_8);
         CRNs[9] = findViewById (R.id.CRN_9);
-        //CRN_10 = findViewById (R.id.CRN_10);
+        CRNs[10] = findViewById (R.id.CRN_10);
+
         Availabilities[0] = findViewById (R.id.Availability_Instruction);
         Availabilities[1] = findViewById (R.id.Availability_1);
         Availabilities[2] = findViewById (R.id.Availability_2);
@@ -94,28 +68,92 @@ public class MainActivity extends AppCompatActivity {
         Availabilities[7] = findViewById (R.id.Availability_7);
         Availabilities[8] = findViewById (R.id.Availability_8);
         Availabilities[9] = findViewById (R.id.Availability_9);
-        //Availability_10 = findViewById (R.id.Availability_10);
-        toClick = findViewById (R.id.toClick);
-        toClick.setOnClickListener (new View.OnClickListener () {
+        Availabilities[10] = findViewById (R.id.Availability_10);
+
+        scrape = findViewById (R.id.scrape);
+        nextPage = findViewById (R.id.nextPage);
+        prePage = findViewById (R.id.prePage);
+
+        subject = findViewById (R.id.subject);
+        courseNumber = findViewById (R.id.number);
+        crn = findViewById (R.id.crn);
+
+        scrape.setOnClickListener (new View.OnClickListener () {
             @Override
             public void onClick(View v) {
-                for (int i = 0; i < 9; i++) {
+                if (subject.getText ().toString ().matches (".+")) {
+                    toScrape.put("subject", subject.getText ().toString ().toUpperCase ());
+                } else {
+                    return;
+                }
+                if (courseNumber.getText ().toString ().matches ("[0-9]{3}")) {
+                    toScrape.put ("courseNumber", courseNumber.getText ().toString ());
+                } else {
+                    return;
+                }
+                toScrape.put("crn", crn.getText ().toString ());
+                for (int i = 0; i < 10; i++) {
                     CRNs[i + 1].setText ("Scraping");
                     Availabilities[i + 1].setText ("Scraping");
                 }
                 new Thread(runnable).start();
-                Log.d("hello", "World");
             }
         });
 
+        nextPage.setOnClickListener (new View.OnClickListener () {
+            @Override
+            public void onClick(View v) {
+                currentPage++;
+                hasPrePage = true;
+                prePage.setVisibility (View.VISIBLE);
+                int count;
+                if ((storedAval.length - currentPage * 10) > 10) {
+                    count = currentPage * 10 + 10;
+                } else {
+                    hasNextPage = false;
+                    count = storedAval.length;
+                }
+                for (int i = 1; i < 11; i++) {
+                    CRNs[i].setText ("");
+                    Availabilities[i].setText ("");
+                }
+                for (int i = currentPage * 10; i < count; i++) {
+                    CRNs[i + 1 - currentPage * 10].setText (storedCRNs[i]);
+                    Availabilities[i + 1 - currentPage * 10].setText (storedAval[i]);
+                }
+                if (!hasNextPage) {
+                    nextPage.setVisibility (View.INVISIBLE);
+                }
+            }
+        });
+
+        prePage.setOnClickListener (new View.OnClickListener () {
+            @Override
+            public void onClick(View v) {
+                currentPage--;
+                hasNextPage = true;
+                nextPage.setVisibility (View.VISIBLE);
+                if (currentPage == 0) {
+                    hasPrePage = false;
+                }
+                for (int i = currentPage * 10; i < currentPage * 10 + 10; i++) {
+                    CRNs[i + 1 - currentPage * 10].setText (storedCRNs[i]);
+                    Availabilities[i + 1 - currentPage * 10].setText (storedAval[i]);
+                }
+                if (!hasPrePage) {
+                    prePage.setVisibility (View.INVISIBLE);
+                }
+            }
+        });
     }
     Runnable runnable = new Runnable () {
         @Override
         public void run() {
             Parser parser = new Parser ();
             parser.parseForCrn ();
-            crns = parser.getCrns ();
-            aval = parser.getAval ();
+            storedMap = parser.getMap ();
+            storedAval = parser.getAval ();
+            storedCRNs = parser.getCrns ();
             handler.sendEmptyMessage(0);
         }
     };
@@ -123,9 +161,19 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            for (int i = 0; i < 9; i++) {
-                CRNs[i + 1].setText (crns[i]);
-                Availabilities[i + 1].setText (aval[i]);
+            int count;
+            if (storedAval.length > 10) {
+                hasNextPage = true;
+                count = 10;
+            } else {
+                count = storedAval.length;
+            }
+            for (int i = 0; i < count; i++) {
+                CRNs[i + 1].setText (storedCRNs[i]);
+                Availabilities[i + 1].setText (storedAval[i]);
+            }
+            if (hasNextPage) {
+                nextPage.setVisibility (View.VISIBLE);
             }
         }
     };
