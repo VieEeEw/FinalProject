@@ -21,12 +21,14 @@ import java.io.IOException;
 
 
 public class Parser {
-    public static final String URL_BASE = "https://courses.illinois.edu/schedule/2019/spring/";
+    private static final String URL_BASE = "https://courses.illinois.edu/schedule/2019/spring/";
     private String urlToParse;
 
     private List<String[]> stored;
 
     private String crnToFind;
+
+    private String script;
 
     public Parser() {
         urlToParse = "https://courses.illinois.edu/schedule/2019/spring/CS/125";
@@ -64,7 +66,7 @@ public class Parser {
         }
         if (useful == null) {
             //Log.d("parsing", "No script");
-            //System.out.println ("no scrpit");
+            //System.out.println ("no script");
             return false;
         }
         ArrayList<String> toUse = new ArrayList<> ();
@@ -123,12 +125,17 @@ public class Parser {
         }
         return toReturn;
     }
+    public String getScript() {
+        return this.script;
+    }
 }
 
 class Test {
     public static void main(String[] args) throws Exception {
         Parser p = new Parser ("CS", "125", "31155");
-        p.parseForCrn ();
+        if (p.parseForCrn ()) {
+            System.out.println (p.getScript ());
+        }
         String[] avl = p.getAval ();
         String[] crns = p.getCrns ();
         for (int i = 0; i < avl.length; i++) {

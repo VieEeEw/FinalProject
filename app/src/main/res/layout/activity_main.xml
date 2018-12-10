@@ -6,259 +6,42 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+
     <TableRow
-        android:id="@+id/r1"
+        android:id="@+id/r22"
         android:layout_width="match_parent"
-        android:layout_height="455dp" >
-
-        <TextView
-            android:id="@+id/CRN_Instruction"
-            android:layout_width="176dp"
-            android:layout_height="wrap_content"
-            android:text="CRN"></TextView>
-
-        <TextView
-            android:id="@+id/Availability_Instruction"
-            android:layout_width="207dp"
-            android:layout_height="wrap_content"
-            android:text="Availability"></TextView>
-    </TableRow>
-
-    <TableRow
-        android:id="@+id/r2"
-        android:layout_width="match_parent"
-        android:layout_height="455dp" >
-
-        <TextView
-            android:id="@+id/CRN_1"
-            android:layout_width="176dp"
-            android:layout_height="wrap_content"
-            android:text="Hello World"></TextView>
-
-        <TextView
-            android:id="@+id/Availability_1"
-            android:layout_width="207dp"
-            android:layout_height="wrap_content"
-            android:text="Hello World"></TextView>
-    </TableRow>
-
-    <TableRow
-    android:id="@+id/r3"
-    android:layout_width="match_parent"
-    android:layout_height="455dp" >
-
-    <TextView
-        android:id="@+id/CRN_2"
-        android:layout_width="176dp"
-        android:layout_height="wrap_content"
-        android:text="Hello World"></TextView>
-
-    <TextView
-        android:id="@+id/Availability_2"
-        android:layout_width="207dp"
-        android:layout_height="wrap_content"
-        android:text="Hello World"></TextView>
-    </TableRow>
-
-    <TableRow
-    android:id="@+id/r4"
-    android:layout_width="match_parent"
-    android:layout_height="455dp" >
-
-    <TextView
-        android:id="@+id/CRN_3"
-        android:layout_width="176dp"
-        android:layout_height="wrap_content"
-        android:text="Hello World"></TextView>
-
-    <TextView
-        android:id="@+id/Availability_3"
-        android:layout_width="207dp"
-        android:layout_height="wrap_content"
-        android:text="Hello World"></TextView>
-    </TableRow>
-
-    <TableRow
-    android:id="@+id/r5"
-    android:layout_width="match_parent"
-    android:layout_height="455dp" >
-
-    <TextView
-        android:id="@+id/CRN_4"
-        android:layout_width="176dp"
-        android:layout_height="wrap_content"
-        android:text="Hello World"></TextView>
-
-    <TextView
-        android:id="@+id/Availability_4"
-        android:layout_width="207dp"
-        android:layout_height="wrap_content"
-        android:text="Hello World"></TextView>
-    </TableRow>
-
-    <TableRow
-    android:id="@+id/r6"
-    android:layout_width="match_parent"
-    android:layout_height="455dp" >
-
-    <TextView
-        android:id="@+id/CRN_5"
-        android:layout_width="176dp"
-        android:layout_height="wrap_content"
-        android:text="Hello World"></TextView>
-
-    <TextView
-        android:id="@+id/Availability_5"
-        android:layout_width="207dp"
-        android:layout_height="wrap_content"
-        android:text="Hello World"></TextView>
-    </TableRow>
-
-    <TableRow
-    android:id="@+id/r7"
-    android:layout_width="match_parent"
-    android:layout_height="455dp" >
-
-    <TextView
-        android:id="@+id/CRN_6"
-        android:layout_width="176dp"
-        android:layout_height="wrap_content"
-        android:text="Hello World"></TextView>
-
-    <TextView
-        android:id="@+id/Availability_6"
-        android:layout_width="207dp"
-        android:layout_height="wrap_content"
-        android:text="Hello World"></TextView>
-    </TableRow>
-
-    <TableRow
-    android:id="@+id/r8"
-    android:layout_width="match_parent"
-    android:layout_height="455dp" >
-
-    <TextView
-        android:id="@+id/CRN_7"
-        android:layout_width="176dp"
-        android:layout_height="wrap_content"
-        android:text="Hello World"></TextView>
-
-    <TextView
-        android:id="@+id/Availability_7"
-        android:layout_width="207dp"
-        android:layout_height="wrap_content"
-        android:text="Hello World"></TextView>
-    </TableRow>
-
-    <TableRow
-    android:id="@+id/r9"
-    android:layout_width="match_parent"
-    android:layout_height="455dp" >
-
-    <TextView
-        android:id="@+id/CRN_8"
-        android:layout_width="176dp"
-        android:layout_height="wrap_content"
-        android:text="Hello World"></TextView>
-
-    <TextView
-        android:id="@+id/Availability_8"
-        android:layout_width="207dp"
-        android:layout_height="wrap_content"
-        android:text="Hello World"></TextView>
-    </TableRow>
-    <TableRow
-    android:id="@+id/r10"
-    android:layout_width="match_parent"
-    android:layout_height="455dp" >
-
-    <TextView
-        android:id="@+id/CRN_9"
-        android:layout_width="176dp"
-        android:layout_height="wrap_content"
-        android:text="Hello World"></TextView>
-
-    <TextView
-        android:id="@+id/Availability_9"
-        android:layout_width="207dp"
-        android:layout_height="wrap_content"
-        android:text="Hello World"
-        tools:text="Hello World"></TextView>
-    </TableRow>
-    <TableRow
-        android:id="@+id/r11"
-        android:layout_width="match_parent"
-        android:layout_height="455dp" >
-
-        <TextView
-            android:id="@+id/CRN_10"
-            android:layout_width="176dp"
-            android:layout_height="wrap_content"
-            android:text="Hello World"></TextView>
-
-        <TextView
-            android:id="@+id/Availability_10"
-            android:layout_width="207dp"
-            android:layout_height="wrap_content"
-            android:text="Hello World"
-            tools:text="Hello World"></TextView>
-    </TableRow>
-
-    <TableRow>
-        android:id="@+id/r13"
-        android:layout_width="match_parent"
-        android:layout_height="43dp">
-
-        <Button
-            android:id="@+id/prePage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Previous Page"
-            android:visibility="invisible" />
-
-        <Button
-            android:id="@+id/nextPage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:editable="false"
-            android:text="Next Page"
-            android:visibility="invisible" />
-    </TableRow>
-    <TableRow
-        android:id="@+id/r13"
-        android:layout_width="match_parent"
-        android:layout_height="43dp">
+        android:layout_height="wrap_content">
 
 
         <EditText
-            android:id="@+id/subject"
-            android:layout_width="50dp"
+            android:id="@+id/Subject"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="textPersonName"
+            android:inputType="text"
             android:text="Subject" />
 
         <EditText
-            android:id="@+id/number"
-            android:layout_width="50dp"
-            android:layout_height="wrap_content"
+            android:id="@+id/CourseNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
             android:ems="10"
             android:inputType="number"
-            android:text="Course Number" />
-
+            android:text="Course number" />
     </TableRow>
+
     <TableRow
-        android:id="@+id/r14"
+        android:id="@+id/r23"
         android:layout_width="match_parent"
-        android:layout_height="43dp">
+        android:layout_height="wrap_content">
 
 
         <EditText
-            android:id="@+id/crn"
-            android:layout_width="50dp"
+            android:id="@+id/CRN"
+            android:layout_width="118dp"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="number"
+            android:inputType="textPersonName"
             android:text="CRN to find" />
 
         <Button
@@ -266,6 +49,389 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Scrape!" />
+
+
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/r1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/CRN_1"
+            android:layout_width="144dp"
+            android:layout_height="match_parent"
+            android:text="Hello!" />
+
+        <TextView
+            android:id="@+id/Time_1"
+            android:layout_width="277dp"
+            android:layout_height="wrap_content"
+            android:text="Hello!" />
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/r2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/Availability_1"
+            android:layout_width="108dp"
+            android:layout_height="match_parent"
+            android:text="Hello!" />
+
+        <TextView
+            android:id="@+id/Location_1"
+            android:layout_width="277dp"
+            android:layout_height="wrap_content"
+            android:text="Hello!" />
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/r3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/CRN_2"
+            android:layout_width="108dp"
+            android:layout_height="match_parent"
+            android:text="Hello!" />
+
+        <TextView
+            android:id="@+id/Time_2"
+            android:layout_width="277dp"
+            android:layout_height="wrap_content"
+            android:text="Hello!" />
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/r4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/Availability_2"
+            android:layout_width="108dp"
+            android:layout_height="match_parent"
+            android:text="Hello!" />
+
+        <TextView
+            android:id="@+id/Location_2"
+            android:layout_width="277dp"
+            android:layout_height="wrap_content"
+            android:text="Hello!" />
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/r5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/CRN_3"
+            android:layout_width="108dp"
+            android:layout_height="match_parent"
+            android:text="Hello!" />
+
+        <TextView
+            android:id="@+id/Time_3"
+            android:layout_width="277dp"
+            android:layout_height="wrap_content"
+            android:text="Hello!" />
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/r6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/Availability_3"
+            android:layout_width="108dp"
+            android:layout_height="match_parent"
+            android:text="Hello!" />
+
+        <TextView
+            android:id="@+id/Location_3"
+            android:layout_width="277dp"
+            android:layout_height="wrap_content"
+            android:text="Hello!" />
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/r7"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/CRN_4"
+            android:layout_width="108dp"
+            android:layout_height="match_parent"
+            android:text="Hello!" />
+
+        <TextView
+            android:id="@+id/Time_4"
+            android:layout_width="277dp"
+            android:layout_height="wrap_content"
+            android:text="Hello!" />
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/r8"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/Availability_4"
+            android:layout_width="108dp"
+            android:layout_height="match_parent"
+            android:text="Hello!" />
+
+        <TextView
+            android:id="@+id/Location_4"
+            android:layout_width="277dp"
+            android:layout_height="wrap_content"
+            android:text="Hello!" />
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/r9"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/CRN_5"
+            android:layout_width="108dp"
+            android:layout_height="match_parent"
+            android:text="Hello!" />
+
+        <TextView
+            android:id="@+id/Time_5"
+            android:layout_width="277dp"
+            android:layout_height="wrap_content"
+            android:text="Hello!" />
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/r10"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/Availability_5"
+            android:layout_width="108dp"
+            android:layout_height="match_parent"
+            android:text="Hello!" />
+
+        <TextView
+            android:id="@+id/Location_5"
+            android:layout_width="277dp"
+            android:layout_height="wrap_content"
+            android:text="Hello!" />
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/r11"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/CRN_6"
+            android:layout_width="108dp"
+            android:layout_height="match_parent"
+            android:text="Hello!" />
+
+        <TextView
+            android:id="@+id/Time_6"
+            android:layout_width="277dp"
+            android:layout_height="wrap_content"
+            android:text="Hello!" />
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/r12"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/Availability_6"
+            android:layout_width="108dp"
+            android:layout_height="match_parent"
+            android:text="Hello!" />
+
+        <TextView
+            android:id="@+id/Location_6"
+            android:layout_width="277dp"
+            android:layout_height="wrap_content"
+            android:text="Hello!" />
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/r13"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/CRN_7"
+            android:layout_width="108dp"
+            android:layout_height="match_parent"
+            android:text="Hello!" />
+
+        <TextView
+            android:id="@+id/Time_7"
+            android:layout_width="277dp"
+            android:layout_height="wrap_content"
+            android:text="Hello!" />
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/r14"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/Availability_7"
+            android:layout_width="108dp"
+            android:layout_height="match_parent"
+            android:text="Hello!" />
+
+        <TextView
+            android:id="@+id/Location_7"
+            android:layout_width="277dp"
+            android:layout_height="wrap_content"
+            android:text="Hello!" />
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/r15"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/CRN_8"
+            android:layout_width="108dp"
+            android:layout_height="match_parent"
+            android:text="Hello!" />
+
+        <TextView
+            android:id="@+id/Time_8"
+            android:layout_width="277dp"
+            android:layout_height="wrap_content"
+            android:text="Hello!" />
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/r16"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/Availability_8"
+            android:layout_width="108dp"
+            android:layout_height="match_parent"
+            android:text="Hello!" />
+
+        <TextView
+            android:id="@+id/Location_8"
+            android:layout_width="277dp"
+            android:layout_height="wrap_content"
+            android:text="Hello!" />
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/r17"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/CRN_9"
+            android:layout_width="108dp"
+            android:layout_height="match_parent"
+            android:text="Hello!" />
+
+        <TextView
+            android:id="@+id/Time_9"
+            android:layout_width="277dp"
+            android:layout_height="wrap_content"
+            android:text="Hello!" />
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/r18"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/Availability_9"
+            android:layout_width="108dp"
+            android:layout_height="match_parent"
+            android:text="Hello!" />
+
+        <TextView
+            android:id="@+id/Location_9"
+            android:layout_width="277dp"
+            android:layout_height="wrap_content"
+            android:text="Hello!" />
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/r19"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/CRN_10"
+            android:layout_width="108dp"
+            android:layout_height="match_parent"
+            android:text="Hello!" />
+
+        <TextView
+            android:id="@+id/Time_10"
+            android:layout_width="277dp"
+            android:layout_height="wrap_content"
+            android:text="Hello!" />
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/r20"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/Availability_10"
+            android:layout_width="108dp"
+            android:layout_height="match_parent"
+            android:text="Hello!" />
+
+        <TextView
+            android:id="@+id/Location_10"
+            android:layout_width="277dp"
+            android:layout_height="wrap_content"
+            android:text="Hello!" />
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/r21"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/prePage"
+            android:layout_width="72dp"
+            android:layout_height="wrap_content"
+            android:text="Previous page"
+            android:visibility="invisible" />
+
+        <Button
+            android:id="@+id/nextPage"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:text="Next page"
+            android:visibility="invisible" />
+
 
     </TableRow>
 

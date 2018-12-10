@@ -20,29 +20,35 @@ import java.util.Map;
 
 
 public class MainActivity extends AppCompatActivity {
-    TextView[] CRNs = new TextView[11];
-    TextView[] Availabilities = new TextView[11];
+    private static int ROW_NUMBER = 10;
 
-    private EditText subject;
-    private EditText courseNumber;
-    private EditText crn;
+    private TextView[] crnsText = new TextView[10];
+    private TextView[] avalText = new TextView[10];
+    private TextView[] locaText = new TextView[10];
+    private TextView[] timeText = new TextView[10];
 
-    private Button scrape;
     private Button nextPage;
     private Button prePage;
+    private Button scrape;
 
-    private Map<String, String> storedMap;
-    private String[] storedCRNs;
+    private EditText subject;
+    private EditText number;
+    private EditText crn;
+
+    private Map<String, Map<String, String>> storedMap;
+    private String[] storedTime;
+    private String[] storedLoca;
+    private String[] storedCrns;
     private String[] storedAval;
 
     private Map<String, String> toScrape = new HashMap<> ();
 
     private int currentPage = 0;
-    private boolean hasNextPage = false;
-    private boolean hasPrePage = false;
+    private boolean hasNext = false;
+    private boolean hasPre = false;
 
     private boolean findModeOn = false;
-    private boolean parseByDeault = false;
+    private boolean parseByDefault = false;
     private int trickCount = 0;
 
     @Override
@@ -50,86 +56,104 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate (savedInstanceState);
         setContentView (R.layout.activity_main);
 
-        subject = findViewById (R.id.subject);
-        courseNumber = findViewById (R.id.number);
-        crn = findViewById (R.id.crn);
+        crnsText[0] = findViewById (R.id.CRN_1);
+        crnsText[1] = findViewById (R.id.CRN_2);
+        crnsText[2] = findViewById (R.id.CRN_3);
+        crnsText[3] = findViewById (R.id.CRN_4);
+        crnsText[4] = findViewById (R.id.CRN_5);
+        crnsText[5] = findViewById (R.id.CRN_6);
+        crnsText[6] = findViewById (R.id.CRN_7);
+        crnsText[7] = findViewById (R.id.CRN_8);
+        crnsText[8] = findViewById (R.id.CRN_9);
+        crnsText[9] = findViewById (R.id.CRN_10);
 
-        CRNs[0] = findViewById (R.id.CRN_Instruction);
-        CRNs[1] = findViewById (R.id.CRN_1);
-        CRNs[2] = findViewById (R.id.CRN_2);
-        CRNs[3] = findViewById (R.id.CRN_3);
-        CRNs[4] = findViewById (R.id.CRN_4);
-        CRNs[5] = findViewById (R.id.CRN_5);
-        CRNs[6] = findViewById (R.id.CRN_6);
-        CRNs[7] = findViewById (R.id.CRN_7);
-        CRNs[8] = findViewById (R.id.CRN_8);
-        CRNs[9] = findViewById (R.id.CRN_9);
-        CRNs[10] = findViewById (R.id.CRN_10);
+        avalText[0] = findViewById (R.id.Availability_1);
+        avalText[1] = findViewById (R.id.Availability_2);
+        avalText[2] = findViewById (R.id.Availability_3);
+        avalText[3] = findViewById (R.id.Availability_4);
+        avalText[4] = findViewById (R.id.Availability_5);
+        avalText[5] = findViewById (R.id.Availability_6);
+        avalText[6] = findViewById (R.id.Availability_7);
+        avalText[7] = findViewById (R.id.Availability_8);
+        avalText[8] = findViewById (R.id.Availability_9);
+        avalText[9] = findViewById (R.id.Availability_10);
 
-        Availabilities[0] = findViewById (R.id.Availability_Instruction);
-        Availabilities[1] = findViewById (R.id.Availability_1);
-        Availabilities[2] = findViewById (R.id.Availability_2);
-        Availabilities[3] = findViewById (R.id.Availability_3);
-        Availabilities[4] = findViewById (R.id.Availability_4);
-        Availabilities[5] = findViewById (R.id.Availability_5);
-        Availabilities[6] = findViewById (R.id.Availability_6);
-        Availabilities[7] = findViewById (R.id.Availability_7);
-        Availabilities[8] = findViewById (R.id.Availability_8);
-        Availabilities[9] = findViewById (R.id.Availability_9);
-        Availabilities[10] = findViewById (R.id.Availability_10);
+        locaText[0] = findViewById (R.id.Location_1);
+        locaText[1] = findViewById (R.id.Location_2);
+        locaText[2] = findViewById (R.id.Location_3);
+        locaText[3] = findViewById (R.id.Location_4);
+        locaText[4] = findViewById (R.id.Location_5);
+        locaText[5] = findViewById (R.id.Location_6);
+        locaText[6] = findViewById (R.id.Location_7);
+        locaText[7] = findViewById (R.id.Location_8);
+        locaText[8] = findViewById (R.id.Location_9);
+        locaText[9] = findViewById (R.id.Location_10);
+
+        timeText[0] = findViewById (R.id.Time_1);
+        timeText[1] = findViewById (R.id.Time_2);
+        timeText[2] = findViewById (R.id.Time_3);
+        timeText[3] = findViewById (R.id.Time_4);
+        timeText[4] = findViewById (R.id.Time_5);
+        timeText[5] = findViewById (R.id.Time_6);
+        timeText[6] = findViewById (R.id.Time_7);
+        timeText[7] = findViewById (R.id.Time_8);
+        timeText[8] = findViewById (R.id.Time_9);
+        timeText[9] = findViewById (R.id.Time_10);
+
+        subject = findViewById (R.id.Subject);
+        number = findViewById (R.id.CourseNumber);
+        crn = findViewById (R.id.CRN);
 
         scrape = findViewById (R.id.scrape);
         scrape.setOnClickListener (new View.OnClickListener () {
             @Override
             public void onClick(View v) {
+                nextPage.setVisibility (View.INVISIBLE);
+                prePage.setVisibility (View.INVISIBLE);
+                currentPage = 0;
                 if (trickCount == 5) {
                     trickCount = 0;
-                    parseByDeault = true;
-                    Toast.makeText (MainActivity.this, "You find this! Welcome to CS 125!",
+                    parseByDefault = true;
+                    Toast.makeText (MainActivity.this, "You found it! Welcome to CS125!",
                             Toast.LENGTH_SHORT).show();
-                    new Thread(runnable).start();
+                    new Thread(crawl).start();
                 }
-                Log.d("Crn", crn.getText ().toString ());
                 if (subject.getText ().toString ().equals("Subject")) {
                     Toast.makeText (MainActivity.this, "Invalid subject!", Toast.LENGTH_SHORT).show();
                     trickCount++;
                     return;
-                } else if (subject.getText ().toString ().matches (".+")) {
+                } else if (subject.getText ().toString ().matches ("[a-z, A-Z]{2,4}")) {
                     toScrape.put("subject", subject.getText ().toString ().toUpperCase ());
                 } else {
-                    Toast.makeText (MainActivity.this, "Invalid subject!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText (MainActivity.this, "Invalid subject input!", Toast.LENGTH_SHORT).show();
                     trickCount++;
                     return;
                 }
-                if (courseNumber.getText ().toString ().matches ("[0-9]{3}")) {
-                    toScrape.put ("courseNumber", courseNumber.getText ().toString ());
+                if (number.getText ().toString ().matches ("[0-9]{3}")) {
+                    toScrape.put ("number", number.getText ().toString ());
                 } else {
-                    Toast.makeText (MainActivity.this, "Invalid course number!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText (MainActivity.this, "Invalid course number input!", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if (crn.getText ().toString ().matches ("[0-9]{5}")) {
                     findModeOn = true;
                     Toast.makeText (MainActivity.this, "Find mode on", Toast.LENGTH_SHORT).show();
                     toScrape.put("crn", crn.getText ().toString ());
-                } else if (crn.getText ().toString ().equals("CRN to find")){
+                } else if (crn.getText ().toString ().equals("CRN to find") ||
+                        crn.getText ().toString ().equals("")){
                     findModeOn = false;
                     Toast.makeText (MainActivity.this, "Find mode off", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText (MainActivity.this, "Invalid CRN!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText (MainActivity.this, "Invalid CRN input!", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                for (int i = 0; i < 10; i++) {
-                    CRNs[i + 1].setText ("Scraping");
-                    Availabilities[i + 1].setText ("Scraping");
+                for (int i = 0; i < ROW_NUMBER; i++) {
+                    crnsText[i].setText ("Scraping");
+                    avalText[i].setText ("Scraping");
+                    timeText[i].setText ("Scraping");
+                    locaText[i].setText ("Scraping");
                 }
-                Log.d("Name", toScrape.get("subject"));
-                Log.d("number", toScrape.get("courseNumber"));
-                try {
-                    Log.d ("crn", toScrape.get ("crn"));
-                } catch (NullPointerException e) {
-                    Log.d("Exception found", "Which does not matter");
-                }
-                new Thread(runnable).start();
+                new Thread(crawl).start();
             }
         });
 
@@ -138,25 +162,22 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 currentPage++;
-                hasPrePage = true;
-                prePage.setVisibility (View.VISIBLE);
+                hasPre = true;
+                clear();
                 int count;
-                if ((storedAval.length - currentPage * 10) > 10) {
-                    count = currentPage * 10 + 10;
+                if (storedCrns.length - currentPage * ROW_NUMBER > ROW_NUMBER) {
+                    hasNext = true;
+                    count = ROW_NUMBER;
                 } else {
-                    hasNextPage = false;
-                    count = storedAval.length;
+                    hasNext = false;
+                    count = storedCrns.length - currentPage * ROW_NUMBER;
                 }
-                for (int i = 1; i < 11; i++) {
-                    CRNs[i].setText ("");
-                    Availabilities[i].setText ("");
-                }
-                for (int i = currentPage * 10; i < count; i++) {
-                    CRNs[i + 1 - currentPage * 10].setText (storedCRNs[i]);
-                    Availabilities[i + 1 - currentPage * 10].setText (storedAval[i]);
-                }
-                if (!hasNextPage) {
+                set(count, currentPage * ROW_NUMBER);
+                if (!hasNext) {
                     nextPage.setVisibility (View.INVISIBLE);
+                }
+                if (hasPre) {
+                    prePage.setVisibility (View.VISIBLE);
                 }
             }
         });
@@ -166,79 +187,101 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 currentPage--;
-                hasNextPage = true;
-                nextPage.setVisibility (View.VISIBLE);
+                hasNext = true;
+                clear();
+                int count;
+                if (storedCrns.length - currentPage * ROW_NUMBER > ROW_NUMBER) {
+                    hasPre = true;
+                    count = ROW_NUMBER;
+                } else {
+                    hasPre = false;
+                    count = storedCrns.length - currentPage * ROW_NUMBER;
+                }
+                set(count, currentPage * ROW_NUMBER);
                 if (currentPage == 0) {
-                    hasPrePage = false;
-                }
-                for (int i = currentPage * 10; i < currentPage * 10 + 10; i++) {
-                    CRNs[i + 1 - currentPage * 10].setText (storedCRNs[i]);
-                    Availabilities[i + 1 - currentPage * 10].setText (storedAval[i]);
-                }
-                if (!hasPrePage) {
                     prePage.setVisibility (View.INVISIBLE);
+                }
+                if (hasNext) {
+                    nextPage.setVisibility (View.VISIBLE);
                 }
             }
         });
     }
-    Runnable runnable = new Runnable () {
+
+    Runnable crawl = new Runnable () {
         @Override
         public void run() {
-            Parser parser;
-            if (parseByDeault) {
-                parseByDeault = false;
-                parser = new Parser();
-            } else if (!findModeOn) {
-                parser = new Parser (toScrape.get("subject"), toScrape.get("courseNumber"));
+            ParserXml parser;
+            if (parseByDefault) {
+                parser = new ParserXml();
+            } else if (!findModeOn){
+                parser = new ParserXml (toScrape.get("subject"), toScrape.get ("number"));
             } else {
-                findModeOn = false;
-                parser = new Parser(toScrape.get("subject"), toScrape.get("courseNumber"), toScrape.get("crn"));
+                parser = new ParserXml (toScrape.get("subject"), toScrape.get("number"),
+                        toScrape.get("crn"));
             }
-            if (parser.parseForCrn ()) {
+            if (parser.parseFromXml ()) {
+                storedCrns = parser.getCrns ();
                 storedMap = parser.getMap ();
                 storedAval = parser.getAval ();
-                storedCRNs = parser.getCrns ();
-                handler.sendEmptyMessage (0);
+                storedLoca = parser.getLoca ();
+                storedTime = parser.getTheTime ();
+                parsingSuccess.sendEmptyMessage (0);
             } else {
-                err.sendEmptyMessage (0);
+                Log.d("Parsing Error", "Parsing failed!");
+                parsingError.sendEmptyMessage (0);
             }
         }
     };
-
-    Handler err = new Handler () {
+    Handler parsingError = new Handler () {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage (msg);
             Toast.makeText (MainActivity.this, "Cannot find", Toast.LENGTH_SHORT).show();
-            for (int i = 1; i < 11; i++) {
-                CRNs[i].setText ("Cannot find your course!");
-                Availabilities[i].setText ("Cannot find your course!");
+            for (int i = 0; i < ROW_NUMBER; i++) {
+                crnsText[i].setText ("Cannot find your course!");
+                avalText[i].setText ("Cannot find your course!");
+                locaText[i].setText ("Cannot find your course!");
+                timeText[i].setText ("Cannot find your course!");
             }
         }
     };
-
-    Handler handler = new Handler () {
+    Handler parsingSuccess = new Handler () {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             int count;
             if (storedAval.length > 10) {
-                hasNextPage = true;
+                hasNext = true;
                 count = 10;
             } else {
                 count = storedAval.length;
             }
-            for (int i = 1; i < 11; i++) {
-                CRNs[i].setText ("");
-                Availabilities[i].setText ("");
-            }
-            for (int i = 0; i < count; i++) {
-                CRNs[i + 1].setText (storedCRNs[i]);
-                Availabilities[i + 1].setText (storedAval[i]);
-            }
-            if (hasNextPage) {
+            clear();
+            set(count);
+            if (hasNext) {
                 nextPage.setVisibility (View.VISIBLE);
             }
         }
     };
+
+    private void clear() {
+        for (int i = 0; i < ROW_NUMBER; i++) {
+            crnsText[i].setText ("");
+            avalText[i].setText ("");
+            locaText[i].setText ("");
+            timeText[i].setText ("");
+        }
+    }
+    private void set(int rowMax) {
+        set(rowMax, 0);
+    }
+    private void set(int rowMax, int start) {
+        for (int i = 0; i < rowMax; i++) {
+            crnsText[i].setText (storedCrns[start + i]);
+            avalText[i].setText (storedAval[start + i]);
+            timeText[i].setText (storedTime[start + i]);
+            locaText[i].setText (storedLoca[start + i]);
+        }
+    }
 }
