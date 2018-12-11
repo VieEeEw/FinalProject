@@ -1,5 +1,9 @@
 package com.uiuc.phillip.finalprojectcrawler;
 
+import android.app.Activity;
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
@@ -108,6 +112,13 @@ public class MainActivity extends AppCompatActivity {
         scrape.setOnClickListener (new View.OnClickListener () {
             @Override
             public void onClick(View v) {
+                if (!isNetworkConnected (MainActivity.this)) {
+                    Toast.makeText (MainActivity.this, "Fail to connect to network! Check your network connection!",
+                            Toast.LENGTH_SHORT).show();
+                    Log.d("Network error", "No connection available.");
+                    return;
+                }
+
                 nextPage.setVisibility (View.INVISIBLE);
                 prePage.setVisibility (View.INVISIBLE);
                 currentPage = 0;
@@ -117,6 +128,7 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText (MainActivity.this, "You found it! Welcome to CS125!",
                             Toast.LENGTH_SHORT).show();
                     new Thread(crawl).start();
+                    return;
                 }
                 if (subject.getText ().toString ().equals("Subject")) {
                     Toast.makeText (MainActivity.this, "Invalid subject!", Toast.LENGTH_SHORT).show();
@@ -142,7 +154,7 @@ public class MainActivity extends AppCompatActivity {
                 } else if (crn.getText ().toString ().equals("CRN to find") ||
                         crn.getText ().toString ().equals("")){
                     findModeOn = false;
-                    Toast.makeText (MainActivity.this, "Find mode off", Toast.LENGTH_SHORT).show();
+                    Toast.makeText (MainActivity.this, "General search", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText (MainActivity.this, "Invalid CRN input!", Toast.LENGTH_SHORT).show();
                     return;
@@ -208,19 +220,27 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    Runnable crawl = new Runnable () {
+    private Runnable crawl = new Runnable () {
         @Override
         public void run() {
             ParserXml parser;
             if (parseByDefault) {
                 parser = new ParserXml();
+                parseByDefault = false;
             } else if (!findModeOn){
                 parser = new ParserXml (toScrape.get("subject"), toScrape.get ("number"));
             } else {
                 parser = new ParserXml (toScrape.get("subject"), toScrape.get("number"),
                         toScrape.get("crn"));
             }
-            if (parser.parseFromXml ()) {
+            boolean run;
+            try {
+                run = parser.parseFromXml ();
+            } catch (ArrayIndexOutOfBoundsException error) {
+                parsingError.sendEmptyMessage (0);
+                return;
+            }
+            if (run) {
                 storedCrns = parser.getCrns ();
                 storedMap = parser.getMap ();
                 storedAval = parser.getAval ();
@@ -233,7 +253,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     };
-    Handler parsingError = new Handler () {
+    private Handler parsingError = new Handler () {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage (msg);
@@ -246,7 +266,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     };
-    Handler parsingSuccess = new Handler () {
+    private Handler parsingSuccess = new Handler () {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
@@ -256,6 +276,7 @@ public class MainActivity extends AppCompatActivity {
                 count = 10;
             } else {
                 count = storedAval.length;
+                hasNext = false;
             }
             clear();
             set(count);
@@ -279,9 +300,31 @@ public class MainActivity extends AppCompatActivity {
     private void set(int rowMax, int start) {
         for (int i = 0; i < rowMax; i++) {
             crnsText[i].setText (storedCrns[start + i]);
+            if (storedAval[start + i].equals("Unknown")) {
+                Toast.makeText (MainActivity.this, "You have found an unknown type of availability of course! Conguratulations!!",
+                        Toast.LENGTH_LONG).show ();
+            }
             avalText[i].setText (storedAval[start + i]);
             timeText[i].setText (storedTime[start + i]);
             locaText[i].setText (storedLoca[start + i]);
         }
+    }
+
+    private boolean isNetworkConnected(Activity activity) {
+        Context context = activity.getApplicationContext ();
+        ConnectivityManager cm = (ConnectivityManager)context.getSystemService (Context.CONNECTIVITY_SERVICE);
+        if (cm == null) {
+            return false;
+        }
+        NetworkInfo[] networkInfos = cm.getAllNetworkInfo ();
+        if (networkInfos == null || networkInfos.length == 0) {
+            return false;
+        }
+        for (NetworkInfo networkInfo: networkInfos) {
+            if (networkInfo.getState ().equals (NetworkInfo.State.CONNECTED)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

@@ -26,9 +26,15 @@ public class ParserXml {
     private List<String> locaList = new ArrayList<> ();
     private List<String> typeList = new ArrayList<> ();
     private String[] crns;
+    /**
+     * Storing type
+     */
     private String[] aval;
     private String[] time;
     private String[] loca;
+    /**
+     * Storing availability
+     */
     private String[] type;
 
     private String crnToFind;
@@ -74,24 +80,45 @@ public class ParserXml {
         for (Element e: elements) {
             crns.add (e.id ().trim());
             if (!childPage (e.attr ("href"))) {
+                try {
+                    Log.d("Parsing error", "No child page");
+                } catch (Exception error) {
+                    System.out.println ("No child page");
+                }
                 return false;
             }
         }
         this.crns = new String[crns.size()];
         crns.toArray (this.crns);
+        int t = crns.indexOf (crnToFind);
+        System.out.println (Arrays.toString (this.crns));
         this.time = new String[this.timeList.size()];
         this.timeList.toArray (this.time);
-        this.aval = new String[this.avalList.size()];
-        this.avalList.toArray (this.aval);
+        this.aval = new String[this.typeList.size()];
+        this.typeList.toArray (this.aval);
         this.loca = new String[this.locaList.size()];
         this.locaList.toArray (this.loca);
-        this.type = new String[this.typeList.size()];
-        this.typeList.toArray (this.type);
+        this.type = new String[this.avalList.size()];
+        this.avalList.toArray (this.type);
         for (int i = 0; i < this.crns.length; i++) {
+            if (type[i].contains("Closed")) {
+                type[i] = "Closed";
+            } else if (type[i].contains ("Restricted")){
+                type[i] = "Restricted";
+            } else if (type[i].contains ("Open")){
+                type[i] = "Open";
+            } else {
+                type[i] = "Unknown";
+            }
             this.crns[i] = this.crns[i] + "(" + this.type[i] + ")";
         }
+        System.out.println (crnToFind);
+        System.out.println (Arrays.toString (this.crns));
+        if (crnToFind != null) {
+            crnToFind = this.crns[t];
+        }
         try{
-            getAval ();
+            getLoca ();
         } catch (NullPointerException error) {
             return false;
         }
@@ -123,10 +150,14 @@ public class ParserXml {
         String courseType = doc.selectFirst ("type").text().trim();
         this.typeList.add(courseType);
         String timeInterval = doc.selectFirst ("start").text().trim();
-        timeInterval += " - ";
-        timeInterval += doc.selectFirst ("end").text().trim();
-        timeInterval += " on ";
-        timeInterval += doc.selectFirst ("daysOfTheWeek").text().trim();
+        try {
+            timeInterval += " - ";
+            timeInterval += doc.selectFirst ("end").text ().trim ();
+            timeInterval += " on ";
+            timeInterval += doc.selectFirst ("daysOfTheWeek").text().trim();
+        } catch(NullPointerException error) {
+            timeInterval = "To arrange";
+        }
         this.timeList.add(timeInterval);
         String location;
         try {
@@ -200,9 +231,9 @@ public class ParserXml {
 
 class Ttest {
     public static void main(String[] args) {
-        ParserXml parser = new ParserXml ();
+        ParserXml parser = new ParserXml ("cs", "173","48264");
         if (parser.parseFromXml ()) {
-            System.out.println (Arrays.toString (parser.getAval ()));
+            System.out.println (parser.getAval ().length);
             System.out.println (Arrays.toString (parser.getCrns ()));
             System.out.println (Arrays.toString (parser.getTheTime ()));
             System.out.println (Arrays.toString (parser.getLoca ()));
