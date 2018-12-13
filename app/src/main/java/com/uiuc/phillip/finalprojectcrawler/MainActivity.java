@@ -147,7 +147,7 @@ public class MainActivity extends AppCompatActivity {
                     findModeOn = true;
                     Toast.makeText (MainActivity.this, "Find mode on", Toast.LENGTH_SHORT).show();
                     toScrape.put("crn", crn.getText ().toString ());
-                } else if (crn.getText ().toString ().equals("CRN to find") ||
+                } else if (crn.getText ().toString ().equals("CRN(Optional)") ||
                         crn.getText ().toString ().equals("")){
                     findModeOn = false;
                     Toast.makeText (MainActivity.this, "General search", Toast.LENGTH_SHORT).show();
