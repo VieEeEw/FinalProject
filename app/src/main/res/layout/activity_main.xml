@@ -42,7 +42,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textPersonName"
-            android:text="CRN to find" />
+            android:text="CRN(Optional)" />
 
         <Button
             android:id="@+id/scrape"
